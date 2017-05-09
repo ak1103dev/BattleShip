@@ -1,7 +1,7 @@
 {
   "name": "battle-ship",
   "version": "0.0.1",
-  "description": "",
+  "description": "Take-Home assignment",
   "main": "index.js",
   "scripts": {
     "start": "pm2 start pm2.json && pm2 logs all",
@@ -23,6 +23,10 @@
   },
   "homepage": "https://github.com/ak1103dev/BattleShip#readme",
   "dependencies": {
-    "express": "^4.15.2"
+    "body-parser": "^1.17.1",
+    "config": "^1.26.1",
+    "express": "^4.15.2",
+    "mongoose": "^4.9.8",
+    "morgan": "^1.8.1"
   }
 }
