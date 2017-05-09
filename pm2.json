@@ -1,0 +1,10 @@
+{
+  "apps": [{
+    "name": "APP",
+    "script": "src/server.js",
+    "env": {
+      "NODE_ENV": "dev"
+    },
+    "watch": true,
+  }]
+}
