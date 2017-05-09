@@ -28,6 +28,7 @@ describe('Users', () => {
         res.body.should.be.a('object');
         res.body.should.have.property('success').eql(true);
         res.body.should.have.property('message').eql(`${user.username} is ${user.userType}.`);
+        res.body.should.have.property('userId');
         done();
       });
     });
@@ -44,6 +45,55 @@ describe('Users', () => {
         res.body.should.be.a('object');
         res.body.should.have.property('success').eql(true);
         res.body.should.have.property('message').eql(`${user.username} is ${user.userType}.`);
+        res.body.should.have.property('userId');
+        done();
+      });
+    });
+    it('it should not regiser because of invalid userType', (done) => {
+      const user = {
+        username: 'xxx',
+        userType: 'student'
+      };
+      chai.request(app)
+		  .post('/users')
+      .send(user)
+		  .end((err, res) => {
+			  res.should.have.status(500);
+        res.body.should.be.a('object');
+        res.body.should.have.property('success').eql(false);
+        res.body.should.have.property('message').be.a('array');
+        done();
+      });
+    });
+    it('it should not regiser because of invalid username', (done) => {
+      const user = {
+        username: '',
+        userType: 'student'
+      };
+      chai.request(app)
+		  .post('/users')
+      .send(user)
+		  .end((err, res) => {
+			  res.should.have.status(500);
+        res.body.should.be.a('object');
+        res.body.should.have.property('success').eql(false);
+        res.body.should.have.property('message').be.a('array');
+        done();
+      });
+    });
+    it('it should not regiser because of invalid username and userType', (done) => {
+      const user = {
+        username: '',
+        userType: ''
+      };
+      chai.request(app)
+		  .post('/users')
+      .send(user)
+		  .end((err, res) => {
+			  res.should.have.status(500);
+        res.body.should.be.a('object');
+        res.body.should.have.property('success').eql(false);
+        res.body.should.have.property('message').be.a('array');
         done();
       });
     });

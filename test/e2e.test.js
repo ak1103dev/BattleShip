@@ -29,6 +29,7 @@ describe('End to end test', () => {
         res.body.should.be.a('object');
         res.body.should.have.property('success').eql(true);
         res.body.should.have.property('message').eql(`${defender.username} is ${defender.userType}.`);
+        res.body.should.have.property('userId');
         done();
       });
     });
@@ -45,6 +46,7 @@ describe('End to end test', () => {
         res.body.should.be.a('object');
         res.body.should.have.property('success').eql(true);
         res.body.should.have.property('message').eql(`${attacker.username} is ${attacker.userType}.`);
+        res.body.should.have.property('userId');
         done();
       });
     });
