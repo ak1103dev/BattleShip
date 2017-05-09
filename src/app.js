@@ -12,7 +12,9 @@ mongoose.connection.on('error', () => {
 });
 
 const app = express();
-app.use(morgan('dev'));
+if (process.env.NODE_ENV === 'dev') {
+  app.use(morgan('dev'));
+}
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', routes);

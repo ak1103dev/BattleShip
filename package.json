@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "pm2 start pm2.json && pm2 logs all",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --timeout 10000"
   },
   "repository": {
     "type": "git",
@@ -28,5 +28,10 @@
     "express": "^4.15.2",
     "mongoose": "^4.9.8",
     "morgan": "^1.8.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "mocha": "^3.3.0"
   }
 }

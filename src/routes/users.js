@@ -7,7 +7,7 @@ router.post('/', (req, res) => {
   new User(req.body).save();
   res.send({
     success: true,
-    message: `${userType} is ${username}`
+    message: `${username} is ${userType}.`
   });
 })
 
