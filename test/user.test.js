@@ -5,14 +5,15 @@ const { User } = require('../src/models/');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const app = require('../src/app');
+const should = chai.should();
 
 chai.use(chaiHttp);
 
 describe('Users', () => {
   beforeEach((done) => {
-	  User.remove({}, (err) => {
-		  done();
-	  });
+    User.remove({}, (err) => {
+      done();
+    });
   });
   describe('POST /users', () => {
     it('it should register defender', (done) => {
@@ -21,10 +22,10 @@ describe('Users', () => {
         userType: 'defender'
       };
       chai.request(app)
-		  .post('/users')
+      .post('/users')
       .send(user)
-		  .end((err, res) => {
-			  res.should.have.status(200);
+      .end((err, res) => {
+        res.should.have.status(200);
         res.body.should.be.a('object');
         res.body.should.have.property('success').eql(true);
         res.body.should.have.property('message').eql(`${user.username} is ${user.userType}.`);
@@ -38,10 +39,10 @@ describe('Users', () => {
         userType: 'attacker'
       };
       chai.request(app)
-		  .post('/users')
+      .post('/users')
       .send(user)
-		  .end((err, res) => {
-			  res.should.have.status(200);
+      .end((err, res) => {
+        res.should.have.status(200);
         res.body.should.be.a('object');
         res.body.should.have.property('success').eql(true);
         res.body.should.have.property('message').eql(`${user.username} is ${user.userType}.`);
@@ -55,10 +56,10 @@ describe('Users', () => {
         userType: 'student'
       };
       chai.request(app)
-		  .post('/users')
+      .post('/users')
       .send(user)
-		  .end((err, res) => {
-			  res.should.have.status(500);
+      .end((err, res) => {
+        res.should.have.status(500);
         res.body.should.be.a('object');
         res.body.should.have.property('success').eql(false);
         res.body.should.have.property('message').be.a('array');
@@ -71,10 +72,10 @@ describe('Users', () => {
         userType: 'student'
       };
       chai.request(app)
-		  .post('/users')
+      .post('/users')
       .send(user)
-		  .end((err, res) => {
-			  res.should.have.status(500);
+      .end((err, res) => {
+        res.should.have.status(500);
         res.body.should.be.a('object');
         res.body.should.have.property('success').eql(false);
         res.body.should.have.property('message').be.a('array');
@@ -87,10 +88,10 @@ describe('Users', () => {
         userType: ''
       };
       chai.request(app)
-		  .post('/users')
+      .post('/users')
       .send(user)
-		  .end((err, res) => {
-			  res.should.have.status(500);
+      .end((err, res) => {
+        res.should.have.status(500);
         res.body.should.be.a('object');
         res.body.should.have.property('success').eql(false);
         res.body.should.have.property('message').be.a('array');
