@@ -1,11 +1,12 @@
 const { Router } = require('express');
 const Joi = require('joi');
-const { User } = require('../models/');
+const { User, Config } = require('../models/');
 
 const userSchema = Joi.object().keys({
   username: Joi.string().required(),
-  userType: Joi.string().valid('defender', 'attacker').required()
-}).and('username', 'userType');
+  userType: Joi.string().valid('defender', 'attacker').required(),
+  gameNumber: Joi.number().required()
+}).and('username', 'userType', 'gameNumber');
 
 const router = Router();
 router.post('/', (req, res) => {
@@ -16,15 +17,25 @@ router.post('/', (req, res) => {
         message: err.details.map((detail) => detail.message)
       });
     } else {
-      const { username, userType } = req.body;
+      const { username, userType, gameNumber } = req.body;
       new User(req.body).save()
-      .then((user) => {
-        res.send({
-          success: true,
-          message: `${username} is ${userType}.`,
-          userId: user._id
-        });
-      });
+      .then((newUser) => {
+        User.find({ gameNumber })
+        .then((users) => {
+          if (users.length === 2) {
+            return Config.update({}, { gameNumber }, { upsert: true });
+          }
+          return false;
+        })
+        .then(() =>
+          res.send({
+            success: true,
+            message: `In game ${gameNumber}: ${username} is ${userType}.`,
+            userId: newUser._id
+          })
+        );
+      })
+      .catch((e) => res.status(500).send(e));
     }
   });
 });

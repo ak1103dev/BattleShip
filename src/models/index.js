@@ -1,5 +1,9 @@
 const User = require('./user');
+const Ship = require('./ship');
+const Config = require('./config')
 
 module.exports = {
-  User
+  User,
+  Ship,
+  Config
 };
