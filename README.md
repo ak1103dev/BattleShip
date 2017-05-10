@@ -1,14 +1,28 @@
 # BattleShip
 
-## How to run
+## How to use
+
+### Require
+
+- Node.js version 6.3.1
+- MongoDB (require 2 databases, one is game database and other is database for testing)
+
+### Prepare
 ```
-npm start
+$ git clone https://github.com/ak1103dev/BattleShip
+$ npm install
 ```
-## How to run test
+Please edit database host in ```config/default.json``` and ```config/test.json```
+
+### How to run
 ```
-npm test
+$ npm start
 ```
-## How to play the game from beginning to end
+### How to run test
 ```
-npm run play
+$ npm test
+```
+### How to play the game from beginning to end
+```
+$ npm run play
 ```
