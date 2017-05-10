@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const Joi = require('joi');
+const _ = require('lodash');
 const { User, Config } = require('../models/');
 
 const userSchema = Joi.object().keys({
@@ -23,7 +24,8 @@ router.post('/', (req, res) => {
         User.find({ gameNumber })
         .then((users) => {
           if (users.length === 2) {
-            return Config.update({}, { gameNumber }, { upsert: true });
+            const board = _.times(100, _.constant(false));
+            return Config.update({}, { gameNumber, board }, { upsert: true });
           }
           return false;
         })

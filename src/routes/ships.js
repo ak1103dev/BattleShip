@@ -1,31 +1,42 @@
 const { Router } = require('express');
-// const Joi = require('joi');
+const Joi = require('joi');
 const { Ship, Config } = require('../models/');
-const _ = require('lodash');
 
-// const userSchema = Joi.object().keys({
-//   username: Joi.string().required(),
-//   userType: Joi.string().valid('defender', 'attacker').required()
-// }).and('username', 'userType');
+const shipSchema = Joi.object().keys({
+  userId: Joi.string().required(),
+  shipType: Joi.string().valid('battleship', 'cruiser', 'destroyer', 'submarine').required(),
+  positions: Joi.array().items(Joi.number().min(0).max(99))
+}).and('userId', 'shipType', 'positions');
 
-const board = _.chunk(_.times(100, _.constant(false)), 10);
+const placeShip = (board, positions) => {
+  const newBoard = board;
+  positions.map((position) => (board[position] = true));
+  return newBoard;
+};
 
 const router = Router();
 router.post('/:shipType', (req, res) => {
   const { shipType } = req.params;
-  const { userId, position } = req.body;
-  Config.findOne({}).select('gameNumber')
-  .then(({ gameNumber }) =>
-    new Ship({
-      userId,
-      shipType,
-      position,
-      gameNumber
-    }).save()
-  )
-  .then(() =>
-    res.send({ success: true, message: `placed ${shipType}` })
-  );
+  const { userId, positions } = req.body;
+  Joi.validate({ userId, positions, shipType }, shipSchema, (err, value) => {
+    if (err) {
+      res.status(500).send({
+        success: false,
+        message: err.details.map((detail) => detail.message)
+      });
+    } else {
+      Config.findOne({})
+      .then(({ gameNumber, board }) =>
+        Promise.all([
+          new Ship({ userId, shipType, positions, gameNumber }).save(),
+          Config.update({ gameNumber }, { gameNumber, board: placeShip(board, positions) })
+        ])
+      )
+      .then(() =>
+        res.send({ success: true, message: `placed ${shipType}` })
+      );
+    }
+  });
 });
 
 module.exports = router;

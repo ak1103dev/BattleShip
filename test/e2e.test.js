@@ -63,12 +63,7 @@ describe.only('End to end test', () => {
     });
   });
   describe('2. Place all ship', () => {
-    it('it should place battleship', (done) => {
-      const ship = {
-        userId: defenderId,
-        position: [69, 79, 89, 99]
-      };
-      const shipType = 'battleship';
+    const requestShip = (done, shipType, ship) => {
       chai.request(app)
       .post(`/ships/${shipType}`)
       .send(ship)
@@ -79,159 +74,86 @@ describe.only('End to end test', () => {
         res.body.should.have.property('message').eql(`placed ${shipType}`);
         done();
       });
+    };
+    it('it should place battleship', (done) => {
+      const ship = {
+        userId: defenderId,
+        positions: [69, 79, 89, 99]
+      };
+      const shipType = 'battleship';
+      requestShip(done, shipType, ship);
     });
     it('it should place cruiser 1', (done) => {
       const ship = {
         userId: defenderId,
-        position: [11, 12, 13]
+        positions: [11, 12, 13]
       };
       const shipType = 'cruiser';
-      chai.request(app)
-      .post(`/ships/${shipType}`)
-      .send(ship)
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.be.a('object');
-        res.body.should.have.property('success').eql(true);
-        res.body.should.have.property('message').eql(`placed ${shipType}`);
-        done();
-      });
+      requestShip(done, shipType, ship);
     });
     it('it should place cruiser 2', (done) => {
       const ship = {
         userId: defenderId,
-        position: [32, 33, 34]
+        positions: [32, 33, 34]
       };
       const shipType = 'cruiser';
-      chai.request(app)
-      .post(`/ships/${shipType}`)
-      .send(ship)
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.be.a('object');
-        res.body.should.have.property('success').eql(true);
-        res.body.should.have.property('message').eql(`placed ${shipType}`);
-        done();
-      });
+      requestShip(done, shipType, ship);
     });
     it('it should place destroyer 1', (done) => {
       const ship = {
         userId: defenderId,
-        position: [16, 26]
+        positions: [16, 26]
       };
       const shipType = 'destroyer';
-      chai.request(app)
-      .post(`/ships/${shipType}`)
-      .send(ship)
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.be.a('object');
-        res.body.should.have.property('success').eql(true);
-        res.body.should.have.property('message').eql(`placed ${shipType}`);
-        done();
-      });
+      requestShip(done, shipType, ship);
     });
     it('it should place destroyer 2', (done) => {
       const ship = {
         userId: defenderId,
-        position: [29, 39]
+        positions: [29, 39]
       };
       const shipType = 'destroyer';
-      chai.request(app)
-      .post(`/ships/${shipType}`)
-      .send(ship)
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.be.a('object');
-        res.body.should.have.property('success').eql(true);
-        res.body.should.have.property('message').eql(`placed ${shipType}`);
-        done();
-      });
+      requestShip(done, shipType, ship);
     });
     it('it should place destroyer 3', (done) => {
       const ship = {
         userId: defenderId,
-        position: [51, 52]
+        positions: [51, 52]
       };
       const shipType = 'destroyer';
-      chai.request(app)
-      .post(`/ships/${shipType}`)
-      .send(ship)
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.be.a('object');
-        res.body.should.have.property('success').eql(true);
-        res.body.should.have.property('message').eql(`placed ${shipType}`);
-        done();
-      });
+      requestShip(done, shipType, ship);
     });
     it('it should place submarine 1', (done) => {
       const ship = {
         userId: defenderId,
-        position: [90]
+        positions: [90]
       };
       const shipType = 'submarine';
-      chai.request(app)
-      .post(`/ships/${shipType}`)
-      .send(ship)
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.be.a('object');
-        res.body.should.have.property('success').eql(true);
-        res.body.should.have.property('message').eql(`placed ${shipType}`);
-        done();
-      });
+      requestShip(done, shipType, ship);
     });
     it('it should place submarine 2', (done) => {
       const ship = {
         userId: defenderId,
-        position: [54]
+        positions: [54]
       };
       const shipType = 'submarine';
-      chai.request(app)
-      .post(`/ships/${shipType}`)
-      .send(ship)
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.be.a('object');
-        res.body.should.have.property('success').eql(true);
-        res.body.should.have.property('message').eql(`placed ${shipType}`);
-        done();
-      });
+      requestShip(done, shipType, ship);
     });
     it('it should place submarine 3', (done) => {
       const ship = {
         userId: defenderId,
-        position: [57]
+        positions: [57]
       };
       const shipType = 'submarine';
-      chai.request(app)
-      .post(`/ships/${shipType}`)
-      .send(ship)
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.be.a('object');
-        res.body.should.have.property('success').eql(true);
-        res.body.should.have.property('message').eql(`placed ${shipType}`);
-        done();
-      });
+      requestShip(done, shipType, ship);
     });
     it('it should place submarine 4', (done) => {
       const ship = {
         userId: defenderId,
-        position: [30]
+        positions: [30]
       };
       const shipType = 'submarine';
-      chai.request(app)
-      .post(`/ships/${shipType}`)
-      .send(ship)
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.be.a('object');
-        res.body.should.have.property('success').eql(true);
-        res.body.should.have.property('message').eql(`placed ${shipType}`);
-        done();
-      });
+      requestShip(done, shipType, ship);
     });
   });
   describe('3. Attack the ocean', () => {
