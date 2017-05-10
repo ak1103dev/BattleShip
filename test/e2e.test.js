@@ -5,11 +5,13 @@ const { User } = require('../src/models/');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const app = require('../src/app');
+
+// eslint-disable-next-line
 const should = chai.should();
 
 chai.use(chaiHttp);
 
-describe.only('End to end test', () => {
+describe('End to end test', () => {
   before((done) => {
     User.remove({}, (err) => {
       done();

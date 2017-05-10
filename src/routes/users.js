@@ -5,7 +5,7 @@ const { User } = require('../models/');
 const userSchema = Joi.object().keys({
   username: Joi.string().required(),
   userType: Joi.string().valid('defender', 'attacker').required()
-}).with('username', 'userType');
+}).and('username', 'userType');
 
 const router = Router();
 router.post('/', (req, res) => {
