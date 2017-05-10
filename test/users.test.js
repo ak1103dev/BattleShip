@@ -21,7 +21,8 @@ describe('Users', () => {
     it('it should register defender', (done) => {
       const user = {
         username: 'docker',
-        userType: 'defender'
+        userType: 'defender',
+        gameNumber: 1
       };
       chai.request(app)
       .post('/users')
@@ -30,7 +31,7 @@ describe('Users', () => {
         res.should.have.status(200);
         res.body.should.be.a('object');
         res.body.should.have.property('success').eql(true);
-        res.body.should.have.property('message').eql(`${user.username} is ${user.userType}.`);
+        res.body.should.have.property('message').eql(`In game 1: ${user.username} is ${user.userType}.`);
         res.body.should.have.property('userId');
         done();
       });
@@ -38,7 +39,8 @@ describe('Users', () => {
     it('it should register attacker', (done) => {
       const user = {
         username: 'adam',
-        userType: 'attacker'
+        userType: 'attacker',
+        gameNumber: 1
       };
       chai.request(app)
       .post('/users')
@@ -47,7 +49,7 @@ describe('Users', () => {
         res.should.have.status(200);
         res.body.should.be.a('object');
         res.body.should.have.property('success').eql(true);
-        res.body.should.have.property('message').eql(`${user.username} is ${user.userType}.`);
+        res.body.should.have.property('message').eql(`In game 1: ${user.username} is ${user.userType}.`);
         res.body.should.have.property('userId');
         done();
       });
@@ -55,7 +57,8 @@ describe('Users', () => {
     it('it should not regiser because of invalid userType', (done) => {
       const user = {
         username: 'xxx',
-        userType: 'student'
+        userType: 'student',
+        gameNumber: 1
       };
       chai.request(app)
       .post('/users')
@@ -71,7 +74,8 @@ describe('Users', () => {
     it('it should not regiser because of invalid username', (done) => {
       const user = {
         username: '',
-        userType: 'student'
+        userType: 'student',
+        gameNumber: 1
       };
       chai.request(app)
       .post('/users')
@@ -87,7 +91,8 @@ describe('Users', () => {
     it('it should not regiser because of invalid username and userType', (done) => {
       const user = {
         username: '',
-        userType: ''
+        userType: '',
+        gameNumber: 1
       };
       chai.request(app)
       .post('/users')

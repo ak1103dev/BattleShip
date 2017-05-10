@@ -13,7 +13,7 @@ chai.use(chaiHttp);
 let defenderId;
 let attackerId;
 
-describe.only('End to end test', () => {
+describe('End to end test', () => {
   before((done) => {
     Promise.all([
       User.remove({}),
