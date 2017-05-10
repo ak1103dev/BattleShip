@@ -5,6 +5,6 @@
     "env": {
       "NODE_ENV": "dev"
     },
-    "watch": true,
+    "watch": true
   }]
 }

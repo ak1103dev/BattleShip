@@ -26,3 +26,9 @@ $ npm test
 ```
 $ npm run play
 ```
+
+## List of APIs
+
+- POST /users
+- POST /ships/:shipType
+- POST /attack/:position
