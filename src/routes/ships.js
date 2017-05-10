@@ -13,6 +13,7 @@ const placeShip = (board, positions) => {
   positions.map((position) => (board[position] = true));
   return newBoard;
 };
+const fleet = ['', 'submarine', 'destroyer', 'cruiser', 'battleship'];
 
 const router = Router();
 router.post('/:shipType', (req, res) => {
@@ -25,10 +26,11 @@ router.post('/:shipType', (req, res) => {
         message: err.details.map((detail) => detail.message)
       });
     } else {
+      const lifePoint = fleet.indexOf(shipType);
       Config.findOne({})
       .then(({ gameNumber, board }) =>
         Promise.all([
-          new Ship({ userId, shipType, positions, gameNumber }).save(),
+          new Ship({ userId, shipType, positions, gameNumber, lifePoint }).save(),
           Config.update({ gameNumber }, { gameNumber, board: placeShip(board, positions) })
         ])
       )

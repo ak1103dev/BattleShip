@@ -4,11 +4,10 @@ const { ObjectId } = Schema.Types;
 
 const schema = new Schema({
   userId: { type: ObjectId, ref: 'User' },
-  shipType: String,
-  positions: [Number],
+  position: Number,
   gameNumber: Number,
-  lifePoint: Number,
+  status: String,
   createdAt: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('Ship', schema);
+module.exports = mongoose.model('Attack', schema);

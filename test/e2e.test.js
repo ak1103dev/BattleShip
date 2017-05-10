@@ -1,6 +1,6 @@
 process.env.NODE_ENV = 'test';
 
-const { User, Ship, Config } = require('../src/models/');
+const { User, Ship, Config, Attack } = require('../src/models/');
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -18,7 +18,8 @@ describe.only('End to end test', () => {
     Promise.all([
       User.remove({}),
       Ship.remove({}),
-      Config.remove({})
+      Config.remove({}),
+      Attack.remove({})
     ])
     .then(() => done());
   });
@@ -270,7 +271,7 @@ describe.only('End to end test', () => {
       requestAttack(done, position, getMessage().hit);
     });
     it('attack 99, it should sank a ship', (done) => {
-      const position = 89;
+      const position = 99;
       requestAttack(done, position, getMessage('battleship').sank);
     });
     it('attack 39, it should hit', (done) => {
