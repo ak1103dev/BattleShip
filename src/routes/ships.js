@@ -8,8 +8,9 @@ const fleet = ['submarine', 'destroyer', 'cruiser', 'battleship'];
 const shipSchema = (shipType) => Joi.object().keys({
   userId: Joi.string().required(),
   shipType: Joi.string().valid('battleship', 'cruiser', 'destroyer', 'submarine').required(),
-  positions: Joi.array().items(Joi.number().min(0).max(99)).length(fleet.indexOf(shipType) + 1)
-}).and('userId', 'shipType', 'positions');
+  positions: Joi.array().items(Joi.number().min(0).max(99)).length(fleet.indexOf(shipType) + 1),
+  position: Joi.number().min(0).max(99)
+}).and('userId', 'shipType');
 
 const placeShip = (board, positions) => {
   const newBoard = board;
@@ -87,6 +88,28 @@ router.post('/:shipType', (req, res) => {
       .catch((e) => {
         res.status(500).send({ success: false, message: e.message });
       });
+    }
+  });
+});
+
+router.delete('/:shipType', (req, res) => {
+  const { userId, position } = req.body;
+  const { shipType } = req.params;
+  Joi.validate({ userId, position, shipType }, shipSchema(shipType), (err, value) => {
+    if (err) {
+      res.status(500).send({
+        success: false,
+        message: 'No ship in the position'
+      });
+    } else {
+      Config.findOne({})
+      .then(({ gameNumber }) => Ship.findOneAndRemove({ gameNumber, positions: position }))
+      .then((data) =>
+        data
+        ? res.send({ success: true })
+        : res.status(500).send({ success: false, message: 'No ship in the position' })
+      )
+      .catch((e) => res.status(500).send({ message: e.message }));
     }
   });
 });

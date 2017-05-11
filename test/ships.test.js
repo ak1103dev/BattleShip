@@ -199,10 +199,110 @@ describe('Ships', () => {
       });
     });
   });
-  describe('PUT /ships', () => {
-
-  });
   describe('DELETE /ships', () => {
+    const deleteShipSuccess = (done, shipType, ship, delShip) => {
+      chai.request(app)
+      .post(`/ships/${shipType}`)
+      .send(ship)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.should.have.property('success').eql(true);
+        res.body.should.have.property('message').eql(`placed ${shipType}`);
+        chai.request(app)
+        .delete(`/ships/${shipType}`)
+        .send(delShip)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('success').eql(true);
+          done();
+        });
+      });
+    };
+    const deleteShipFail = (done, shipType, ship, delShip) => {
+      chai.request(app)
+      .post(`/ships/${shipType}`)
+      .send(ship)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.should.have.property('success').eql(true);
+        res.body.should.have.property('message').eql(`placed ${shipType}`);
+        chai.request(app)
+        .delete(`/ships/${shipType}`)
+        .send(delShip)
+        .end((err, res) => {
+          res.should.have.status(500);
+          res.body.should.be.a('object');
+          res.body.should.have.property('success').eql(false);
+          res.body.should.have.property('message').eql('No ship in the position');
+          done();
+        });
+      });
+    };
+    it('it should delete submarine', (done) => {
+      const shipType = 'submarine';
+      const ship = {
+        userId: defenderId,
+        positions: [69]
+      };
+      const delShip = {
+        userId: defenderId,
+        position: 69
+      };
+      deleteShipSuccess(done, shipType, ship, delShip);
+    });
+    it('it should delete destroyer', (done) => {
+      const shipType = 'destroyer';
+      const ship = {
+        userId: defenderId,
+        positions: [69, 79]
+      };
+      const delShip = {
+        userId: defenderId,
+        position: 69
+      };
+      deleteShipSuccess(done, shipType, ship, delShip);
+    });
+    it('it should delete cruiser', (done) => {
+      const shipType = 'cruiser';
+      const ship = {
+        userId: defenderId,
+        positions: [59, 69, 79]
+      };
+      const delShip = {
+        userId: defenderId,
+        position: 69
+      };
+      deleteShipSuccess(done, shipType, ship, delShip);
+    });
+    it('it should delete battleship', (done) => {
+      const shipType = 'battleship';
+      const ship = {
+        userId: defenderId,
+        positions: [59, 69, 79, 89]
+      };
+      const delShip = {
+        userId: defenderId,
+        position: 69
+      };
+      deleteShipSuccess(done, shipType, ship, delShip);
+    });
+    it('it should not delete battleship because of no ship in the position', (done) => {
+      const shipType = 'battleship';
+      const ship = {
+        userId: defenderId,
+        positions: [59, 69, 79, 89]
+      };
+      const delShip = {
+        userId: defenderId,
+        position: 88
+      };
+      deleteShipFail(done, shipType, ship, delShip);
+    });
+  });
+  describe('PUT /ships', () => {
 
   });
 });
