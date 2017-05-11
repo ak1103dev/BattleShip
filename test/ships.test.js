@@ -136,22 +136,35 @@ describe('Ships', () => {
         done();
       });
     });
-    it.skip('it should not place battleship', (done) => {
-      const shipType = 'battleship';
-      const ship = {
+    it('it should not place battleship', (done) => {
+      const shipType1 = 'destroyer';
+      const ship1 = {
+        userId: defenderId,
+        positions: [67, 68]
+      };
+      const shipType2 = 'battleship';
+      const ship2 = {
         userId: defenderId,
         positions: [69, 79, 89, 99]
       };
       chai.request(app)
-      .post(`/ships/${shipType}`)
-      .send(ship)
+      .post(`/ships/${shipType1}`)
+      .send(ship1)
       .end((err, res) => {
-        console.log(res.body);
-        res.should.have.status(500);
+        res.should.have.status(200);
         res.body.should.be.a('object');
-        res.body.should.have.property('success').eql(false);
-        res.body.should.have.property('message').eql(`Can not place ${shipType} because of illegal placement`);
-        done();
+        res.body.should.have.property('success').eql(true);
+        res.body.should.have.property('message').eql(`placed ${shipType1}`);
+        chai.request(app)
+        .post(`/ships/${shipType2}`)
+        .send(ship2)
+        .end((err, res) => {
+          res.should.have.status(500);
+          res.body.should.be.a('object');
+          res.body.should.have.property('success').eql(false);
+          res.body.should.have.property('message').eql(`Can not place ${shipType2} because of illegal placement`);
+          done();
+        });
       });
     });
   });
