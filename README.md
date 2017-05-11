@@ -12,7 +12,7 @@
 $ git clone https://github.com/ak1103dev/BattleShip
 $ npm install
 ```
-Please edit database host in ```config/default.json``` and ```config/test.json```
+Please edit database host in [config/default.json](https://github.com/ak1103dev/BattleShip/blob/master/config/default.json) and [config/test.json](https://github.com/ak1103dev/BattleShip/blob/master/config/test.json)
 
 ### How to run
 ```
@@ -23,7 +23,7 @@ $ npm start
 $ npm test
 ```
 ### How to play the game from beginning to end
-Can see simulation in ```test/e2e.play.js```
+Can see simulation in [test/e2e.play.js](https://github.com/ak1103dev/BattleShip/blob/master/test/e2e.play.js)
 ```
 $ npm run play
 ```
