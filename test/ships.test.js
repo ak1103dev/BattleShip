@@ -40,7 +40,7 @@ describe('Ships', () => {
     });
   });
   describe('POST /ships/:shipType', () => {
-    it('it should placed submarine', (done) => {
+    it('it should place submarine', (done) => {
       const shipType = 'submarine';
       const ship = {
         userId: defenderId,
@@ -64,7 +64,7 @@ describe('Ships', () => {
         done();
       });
     });
-    it('it should placed destroyer', (done) => {
+    it('it should place destroyer', (done) => {
       const shipType = 'destroyer';
       const ship = {
         userId: defenderId,
@@ -88,7 +88,7 @@ describe('Ships', () => {
         done();
       });
     });
-    it('it should placed cruiser', (done) => {
+    it('it should place cruiser', (done) => {
       const shipType = 'cruiser';
       const ship = {
         userId: defenderId,
@@ -112,7 +112,7 @@ describe('Ships', () => {
         done();
       });
     });
-    it('it should placed battleship', (done) => {
+    it('it should place battleship', (done) => {
       const shipType = 'battleship';
       const ship = {
         userId: defenderId,
@@ -133,6 +133,24 @@ describe('Ships', () => {
         res.body.should.have.property('success').eql(true);
         res.body.should.have.property('message').eql(`placed ${shipType}`);
         res.body.should.have.property('remaining').eql(remaining);
+        done();
+      });
+    });
+    it.skip('it should not place battleship', (done) => {
+      const shipType = 'battleship';
+      const ship = {
+        userId: defenderId,
+        positions: [69, 79, 89, 99]
+      };
+      chai.request(app)
+      .post(`/ships/${shipType}`)
+      .send(ship)
+      .end((err, res) => {
+        console.log(res.body);
+        res.should.have.status(500);
+        res.body.should.be.a('object');
+        res.body.should.have.property('success').eql(false);
+        res.body.should.have.property('message').eql(`Can not place ${shipType} because of illegal placement`);
         done();
       });
     });
