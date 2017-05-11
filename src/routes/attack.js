@@ -36,7 +36,10 @@ router.post('/:position', (req, res) => {
             )
             .then(([deadNum, attackNum]) => {
               if (deadNum === 10) {
-                return { message: `Win ! You completed the game in ${attackNum + 1} moves`, gameNumber };
+                return Config.update({ gameNumber }, { $set: { gameNumber: gameNumber + 1 } })
+                .then(() => {
+                  return { message: `Win ! You completed the game in ${attackNum + 1} moves`, gameNumber };
+                });
               }
               if (ship.lifePoint > 0) {
                 return { message: 'Hit', gameNumber };
