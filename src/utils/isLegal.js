@@ -17,9 +17,9 @@ const isLegal = (board, positions) => {
       p + 9, p + 10, p + 11
     ]));
   });
-  // console.log(checkingArea);
   let legal = false;
-  checkingArea.map((p) => (legal = legal || board[p]));
+  checkingArea.filter((a) => (a >= 0 && a <= 99))
+  .map((p) => (legal = legal || board[p]));
   return !legal;
 };
 
