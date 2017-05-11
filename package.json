@@ -10,8 +10,8 @@
   "scripts": {
     "start": "pm2 start pm2.json && pm2 logs all",
     "eslint": "eslint src/**",
-    "test": "mocha --timeout 10000 test/*.test.js",
-    "play": "mocha --timeout 10000 test/*.play.js"
+    "test": "mocha --no-deprecation  --timeout 10000 test/*.test.js",
+    "play": "mocha --no-deprecation --timeout 10000 test/*.play.js"
   },
   "repository": {
     "type": "git",

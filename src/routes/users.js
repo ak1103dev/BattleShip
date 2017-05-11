@@ -21,9 +21,9 @@ router.post('/', (req, res) => {
       const { username, userType, gameNumber } = req.body;
       new User(req.body).save()
       .then((newUser) => {
-        User.find({ gameNumber })
-        .then((users) => {
-          if (users.length === 2) {
+        User.findOne({ gameNumber, userType: 'defender' })
+        .then((user) => {
+          if (user) {
             const board = _.times(100, _.constant(false));
             return Config.update({}, { gameNumber, board }, { upsert: true });
           }
