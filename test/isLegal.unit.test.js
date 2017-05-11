@@ -41,29 +41,30 @@ describe('legal or illegal placement', () => {
     });
   });
   describe('When place ship on corner', () => {
-    const newBoard = _.cloneDeep(board);
-    newBoard[0] = true;
-    newBoard[9] = true;
-    newBoard[90] = true;
-    newBoard[99] = true;
     it('it should be legal', () => {
       const expectedValue = true;
-      const input = [12, 13, 14];
-      expect(isLegal(newBoard, input)).to.equal(expectedValue);
+      const input = [0, 1, 2];
+      expect(isLegal(board, input)).to.equal(expectedValue);
     });
     it('it should be illegal because ship is horizontally adjacent', () => {
       const expectedValue = false;
-      const input = [1, 2, 3];
+      const input = [0, 1, 2];
+      const newBoard = _.cloneDeep(board);
+      newBoard[3] = true;
       expect(isLegal(newBoard, input)).to.equal(expectedValue);
     });
     it('it should be illegal because ship is vertically adjacent', () => {
       const expectedValue = false;
-      const input = [80, 81, 82];
+      const input = [98, 99];
+      const newBoard = _.cloneDeep(board);
+      newBoard[89] = true;
       expect(isLegal(newBoard, input)).to.equal(expectedValue);
     });
     it('it should be illegal because ship is diagonally adjacent', () => {
       const expectedValue = false;
-      const input = [86, 87, 88];
+      const input = [90, 91, 92];
+      const newBoard = _.cloneDeep(board);
+      newBoard[83] = true;
       expect(isLegal(newBoard, input)).to.equal(expectedValue);
     });
   });
