@@ -23,6 +23,7 @@ $ npm start
 $ npm test
 ```
 ### How to play the game from beginning to end
+Can see simulation in ```test/e2e.play.js```
 ```
 $ npm run play
 ```
