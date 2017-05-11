@@ -29,6 +29,10 @@ $ npm run play
 
 ## List of APIs
 
-- POST /users
-- POST /ships/:shipType
-- POST /attack/:position
+- ```POST /users```  -- add user
+- ```POST /ships/:shipType``` -- place a ship
+- ```DELETE /ships/:shipType``` -- remove a ship
+- ```PUT /ships/:shipType``` -- move a ship (unneccessary)
+- ```POST /attack/:position``` -- attack in a target square
+- ```GET /attack``` -- get attack list (unneccessary)
+
