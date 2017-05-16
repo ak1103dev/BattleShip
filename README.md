@@ -1,3 +1,5 @@
+[![](https://circleci.com/gh/ak1103dev/BattleShip.svg?style=shield)](https://circleci.com/gh/ak1103dev/BattleShip)
+
 # BattleShip
 
 ## How to use

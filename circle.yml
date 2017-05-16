@@ -12,6 +12,8 @@ test:
   override:
     - npm run eslint
     - npm run coverage
+  post:
+    - bash <(curl -s https://codecov.io/bash)
 
 general:
   artifacts:
