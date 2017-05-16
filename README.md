@@ -1,4 +1,11 @@
-[![](https://circleci.com/gh/ak1103dev/BattleShip.svg?style=shield)](https://circleci.com/gh/ak1103dev/BattleShip)
+[![circle][circle-svg]][circle-link]
+[![codecov][codecov-svg]][codecov-link]
+
+
+[circle-svg]: https://circleci.com/gh/ak1103dev/BattleShip.svg?style=shield
+[circle-link]: https://circleci.com/gh/ak1103dev/BattleShip
+[codecov-svg]: https://codecov.io/gh/ak1103dev/BattleShip/branch/master/graph/badge.svg
+[codecov-link]: https://codecov.io/gh/ak1103dev/BattleShip
 
 # BattleShip
 
