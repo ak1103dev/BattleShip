@@ -11,4 +11,9 @@ dependencies:
 test:
   override:
     - npm run eslint
-    - npm test
+    - npm run coverage
+
+general:
+  artifacts:
+    - ./coverage
+
